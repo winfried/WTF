@@ -1,0 +1,210 @@
+# This one is convenience to use later on the settings
+# saucelab = 'http://YOUR_SAUCE_USERNAME:YOUR_SAUCE_ACCESSKEY@ondemand.saucelabs.com:80/wd/hub'
+saucelab = 'http://username:accesskey@ondemand.saucelabs.com:80/wd/hub'
+missie = 'http://missie:4444/wd/hub'
+
+# Saucelabs 
+# Maximum Test Duration
+#	As a safety measure to prevent broken tests from running indefinitely,
+#	Sauce limits the duration of tests to 30 minutes by default. You can
+#	adjust this limit on per-job basis. The value of this setting is given
+#	in seconds. The maximum test duration value allowed is 10800 seconds.
+#	maxDuration
+#	integer	"maxDuration":1800
+# Command Timeout
+#	As a safety measure to prevent Selenium crashes from making your tests
+#	run indefinitely, Sauce limits how long Selenium can take to run a
+#	command in our browsers. This is set to 300 seconds by default. The
+#	value of this setting is given in seconds. The maximum command timeout
+#	value allowed is 600 seconds.
+#	commandTimeout
+#	integer	"commandTimeout":300
+# Idle Test Timeout
+#	As a safety measure to prevent tests from running too long after
+#	something has gone wrong, Sauce limits how long a browser can wait for
+#	a test to send a new command. This is set to 90 seconds by default and
+#	limited to a maximum value of 1000 seconds. You can adjust this limit
+#	on a per-job basis. The value of this setting is given in seconds.
+#	idleTimeout
+#	integer	"idleTimeout":90
+
+sites = {
+    'somesite': {
+        'staff': {
+            'url': 'https://someurl/',
+            'username': 'username',
+            'password': 'password',
+            'blockHosts': '192.168.1.10,192.168.4.14',
+            'blockPorts': 443,
+            },
+        'client': {
+            'url': 'https://someurl/',
+            'blockHosts': '192.168.1.10,192.168.4.14',
+            'blockPorts': 443,
+            },
+        },
+    }
+
+browsers = {
+    "local_firefox":    "Firefox",
+    "local_chrome":     "Chrome",
+    #"local_ie":         "IE",
+    #"local_opera":      "Opera",
+    #"local_safari":     "Safari",
+    "missie_firefox":   {
+        "caps": {'browserName': "firefox",
+                 'platform':    "Linux"},
+        "executor": missie
+        },
+    "missie_chrome":   {
+        "caps": {'browserName': "chrome",
+                 'platform':    "Linux"},
+        "executor": missie
+        },
+    "w7_ie10":  {
+        "caps": {'browserName': "internet explorer",
+                 'platform':    "Windows 7",
+                 'version':     "10.0"},
+        "executor": saucelab
+        },
+    "w81_ie11":  {
+        "caps": {'browserName': "internet explorer",
+                 'platform':    "Windows 8.1",
+                 'version':     "11.0"},
+        "executor": saucelab
+        },
+    "w10_ie11":  {
+        "caps": {'browserName': "internet explorer",
+                 'platform':    "Windows 10",
+                 'version':     "11.0"},
+        "executor": saucelab
+        },
+    "w10_edge20":  {
+        "caps": {'browserName': "MicrosoftEdge",
+                 'platform':    "Windows 10",
+                 'version':     "20.10240"},
+        "executor": saucelab
+        },
+    "w10_chrome47": {
+        "caps": {'browserName': "chrome",
+                 'platform': "Windows 10",
+                 'version': "47.0"},
+        "executor": saucelab
+        },
+    }
+
+tests = {
+    '10s_client_drop_client_types': {        
+        'runner': 'broken_connection',
+        'client_browser':    'local_chrome',
+        'staff_browser':     'missie_chrome',
+        'client_disconnect': 'DROP',
+        'staff_disconnect':  None,
+        'disconnect_time':   20, # seconds
+        'reconnect_time':    5, #seconds
+        'client_send_during_disconnect': True,
+        'staff_send_during_disconnect': False,
+        'staff_initiates_close': True,
+        },
+    '10s_client_reject_client_types': {        
+        'runner': 'broken_connection',
+        'client_browser':    'local_chrome',
+        'staff_browser':     'missie_chrome',
+        'client_disconnect': 'REJECT',
+        'staff_disconnect':  None,
+        'disconnect_time':   20, # seconds
+        'reconnect_time':    5, #seconds
+        'client_send_during_disconnect': True,
+        'staff_send_during_disconnect': False,
+        'staff_initiates_close': True,
+        },
+    '10s_client_drop_staff_types': {        
+        'runner': 'broken_connection',
+        'client_browser':    'local_chrome',
+        'staff_browser':     'missie_chrome',
+        'client_disconnect': 'DROP',
+        'staff_disconnect':  None,
+        'disconnect_time':   20, # seconds
+        'reconnect_time':    5, #seconds
+        'client_send_during_disconnect': False,
+        'staff_send_during_disconnect': True,
+        'staff_initiates_close': True,
+        },
+    '10s_client_reject_staff_types': {        
+        'runner': 'broken_connection',
+        'client_browser':    'local_chrome',
+        'staff_browser':     'missie_chrome',
+        'client_disconnect': 'REJECT',
+        'staff_disconnect':  None,
+        'disconnect_time':   20, # seconds
+        'reconnect_time':    5, #seconds
+        'client_send_during_disconnect': False,
+        'staff_send_during_disconnect': True,
+        'staff_initiates_close': True,
+        },
+    '60s_client_drop_client_types': {        
+        'runner': 'broken_connection',
+        'client_browser':    'local_chrome',
+        'staff_browser':     'missie_chrome',
+        'client_disconnect': 'DROP',
+        'staff_disconnect':  None,
+        'disconnect_time':   60, # seconds
+        'reconnect_time':    5, #seconds
+        'client_send_during_disconnect': True,
+        'staff_send_during_disconnect': False,
+        'staff_initiates_close': True,
+        },
+    '60s_client_reject_client_types': {        
+        'runner': 'broken_connection',
+        'client_browser':    'local_chrome',
+        'staff_browser':     'missie_chrome',
+        'client_disconnect': 'REJECT',
+        'staff_disconnect':  None,
+        'disconnect_time':   60, # seconds
+        'reconnect_time':    5, #seconds
+        'client_send_during_disconnect': True,
+        'staff_send_during_disconnect': False,
+        'staff_initiates_close': True,
+        },
+    '60s_client_drop_staff_types': {        
+        'runner': 'broken_connection',
+        'client_browser':    'local_chrome',
+        'staff_browser':     'missie_chrome',
+        'client_disconnect': 'DROP',
+        'staff_disconnect':  None,
+        'disconnect_time':   60, # seconds
+        'reconnect_time':    5, #seconds
+        'client_send_during_disconnect': False,
+        'staff_send_during_disconnect': True,
+        'staff_initiates_close': True,
+        },
+    '60s_client_reject_staff_types': {        
+        'runner': 'broken_connection',
+        'client_browser':    'local_chrome',
+        'staff_browser':     'missie_chrome',
+        'client_disconnect': 'REJECT',
+        'staff_disconnect':  None,
+        'disconnect_time':   60, # seconds
+        'reconnect_time':    5, #seconds
+        'client_send_during_disconnect': False,
+        'staff_send_during_disconnect': True,
+        'staff_initiates_close': True,
+        },
+    'local_chrome_chat': {
+        'runner':         'just_chat',
+        'client_browser': 'local_chrome',
+        'staff_browser':  'local_chrome',
+        'staff_initiates_close': True,
+        }
+    }
+
+tests_to_run = ['local_chrome_chat']
+#tests_to_run = ['10s_client_drop_client_types']
+#tests_to_run = ['10s_client_reject_client_types']
+#tests_to_run = ['10s_client_drop_staff_types']
+#tests_to_run = ['10s_client_reject_staff_types']
+#tests_to_run = ['60s_client_drop_client_types']
+#tests_to_run = ['60s_client_reject_client_types']
+#tests_to_run = ['60s_client_drop_staff_types']
+#tests_to_run = ['60s_client_reject_staff_types']
+#tests_to_run = "ALL"

@@ -3,12 +3,13 @@ Module containing defintions for all sites to test. Should be subclasses
 of 'browser_base'.
 """
 
-import pkgutil 
+import os
+import imp
 
-sites = []
-# 
-__path__ = pkgutil.extend_path(__path__, __name__)
-for importer, modname, ispkg in pkgutil.walk_packages(path=__path__, prefix=__name__+'.'):
-      __import__(modname)
-      sites.append(modname)
+sites = {}
 
+
+for fle in os.listdir(__path__[0]):
+      name, ext = os.path.splitext(fle)
+      if ext == '.py' and not name == "__init__":
+            sites[name] = imp.load_source(name, os.path.join(__path__[0], fle))

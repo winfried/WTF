@@ -1,14 +1,20 @@
 #!/usr/bin/env python
 
 import time
+
+import settings
 import sites
+import tests
 
-browsers = ['Firefox']
-browsers = ['Chrome']
-browsers = ['Chrome', 'Firefox']
+if settings.tests_to_run == "ALL":
+    settings.tests_to_run = settings.tests.keys()
 
-for browser in browsers:
-    b = sites.serviant.StaffBrowser(browser)
-    b.openChat()
-    time.sleep(10)
-    b.close()
+if __name__ == "__main__":
+    for tr in settings.tests_to_run:
+        print tr
+        tConfig = settings.tests[tr]
+        runner = tests.tests[tConfig['runner']]
+        try:
+            runner.test(tConfig)
+        except:
+            raise
