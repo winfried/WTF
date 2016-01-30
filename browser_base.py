@@ -165,7 +165,7 @@ class BrowserBase:
         """Add an iptables rule to drop traffic to chatserver
             Needs in /etc/sudoers:
             username ALL=(ALL) NOPASSWD: /sbin/iptables"""
-        print "droppping traffic ..."
+        print "dropping traffic ..."
         # todo add ipv6 support!
         if not self.local:
             raise Exception("can only filter local traffic")
@@ -182,7 +182,7 @@ class BrowserBase:
         """Add an iptables rule to reject traffic to chatserver
             Needs in /etc/sudoers:
             username ALL=(ALL) NOPASSWD: /sbin/iptables"""
-        print "rejectinging traffic ..."
+        print "rejecting traffic ..."
         # todo add ipv6 support!
         if not self.local:
             raise Exception("can only filter local traffic")
@@ -199,7 +199,7 @@ class BrowserBase:
         """Clear all added iptables rules
             Needs in /etc/sudoers:
             username ALL=(ALL) NOPASSWD: /sbin/iptables"""
-        print "... accepting traffic ..."
+        print "... accepting traffic"
         # todo add ipv6 support!
         if not self.local:
             raise Exception("can only filter local traffic")
